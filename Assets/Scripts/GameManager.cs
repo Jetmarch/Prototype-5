@@ -15,16 +15,14 @@ public class GameManager : MonoBehaviour
     public bool isGameOver;
 
     private int score;
+    public GameObject titleScreen;
     
     
 
     // Start is called before the first frame update
     void Start()
     {
-        isGameOver = false;
-        score = 0;
-        StartCoroutine(SpawnTarget());
-        UpdateScore(0);
+        
     }
 
     // Update is called once per frame
@@ -43,6 +41,17 @@ public class GameManager : MonoBehaviour
             Instantiate(targets[index]);
             UpdateScore(5);
         }
+    }
+
+    public void StartGame(int difficulty)
+    {
+        isGameOver = false;
+        score = 0;
+        spawnRate /= difficulty;
+        StartCoroutine(SpawnTarget());
+        UpdateScore(0);
+
+        titleScreen.gameObject.SetActive(false);
     }
 
     public void UpdateScore(int scoreToAdd)
